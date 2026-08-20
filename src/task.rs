@@ -14,7 +14,7 @@ impl Task {
         }
     }
 
-    pub fn complete(&mut self) {
+    pub fn complete(&mut self) -> () {
         self.completed = true;
     }
 }
