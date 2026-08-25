@@ -55,8 +55,9 @@ fn render(frame: &mut Frame, manager: &TaskManager) {
         .border_type(BorderType::Rounded)
         .borders(Borders::ALL);
 
-    let task_viewer: TaskView = TaskView::new(manager.get_task(1).unwrap());
 
-    frame.render_widget(block, frame.area());
+    let task_viewer: TaskView = TaskView::new(manager.get_task(1).unwrap())
+        .block(block);
+
     frame.render_widget(task_viewer, frame.area());
 }
