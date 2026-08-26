@@ -1,4 +1,8 @@
+use ratatui::widgets::ListItem;
+
 use crate::states::State;
+
+#[derive(Clone)]
 pub struct Task {
     pub id: u32,
     pub name: String,
@@ -20,5 +24,11 @@ impl Task {
     pub fn complete(&mut self) -> () {
         self.completed = true;
         self.state = State::Completed;
+    }
+}
+
+impl From<Task> for ListItem<'static> {
+    fn from(task: Task) -> Self {
+        ListItem::new(task.name)
     }
 }

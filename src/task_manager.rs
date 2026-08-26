@@ -16,6 +16,10 @@ impl TaskManager {
         self.tasks.get(id as usize)
     }
 
+    pub fn get_task_list(&self) -> &Vec<Task> {
+        &self.tasks
+    }
+
     pub fn add_task(&mut self, task: Task) -> () {
         self.max_id += 1;
         let mut task = task;

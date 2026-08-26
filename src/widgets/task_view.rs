@@ -1,16 +1,15 @@
-use ratatui::{buffer::Buffer, layout::Rect, style::Color, widgets::{Block, Widget}};
+use ratatui::{buffer::Buffer, layout::Rect, widgets::{Block, ListItem, Widget}};
 
-use crate::{states::{self, ColorScheme}, task::Task};
+use crate::{states::{ColorScheme}, task::Task};
 
 pub struct TaskView<'a> {
     task: &'a Task,
-    color: Color,
     block: Option<Block<'a>>
 }
 
 impl <'a> TaskView<'a> {
     pub fn new(task: &'a Task) -> Self {
-        TaskView { task: task, color: states::ColorScheme::IDLE, block: None}
+        TaskView { task: task, block: None}
     }
 
     pub fn block(mut self, block: Block<'a>) -> Self {
@@ -18,6 +17,12 @@ impl <'a> TaskView<'a> {
         self
     }
 
+}
+
+impl Into<ListItem<'_>> for TaskView<'_> {
+    fn into(self) -> ListItem<'static> {
+        self.task.name.clone().into()
+    }
 }
 
 impl Widget for TaskView<'_> {
@@ -35,7 +40,7 @@ impl Widget for TaskView<'_> {
         }
 
         let task: &Task = &self.task;
-        if (area.height > 1) {
+        if area.height > 1 {
             buf.set_string(
                 inner.x,
                 inner.y,
